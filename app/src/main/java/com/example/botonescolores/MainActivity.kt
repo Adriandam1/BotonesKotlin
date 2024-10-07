@@ -67,7 +67,7 @@ fun Botones(){
 
         // campo de texto para rellenar
         // cuando el valor de name cambia, le asigna el valor de it(el nuevo que cambia)
-        TextField(
+        TextField(modifier = Modifier,
             value = color.value,
             // onValueChange sería el listener del textfield
             onValueChange = {
@@ -75,6 +75,6 @@ fun Botones(){
             },
             label = { Text(text = "Color: ", fontSize = 24.sp) }
         )
-
+        //modifier = Modifier.
     }
 }
