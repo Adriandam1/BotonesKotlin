@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -40,8 +41,16 @@ class MainActivity : ComponentActivity() {
 
 //enum class para usar en los botones, TODO : aplicar a todos los componentes
 enum class ColoresNumerados(val colorNumero: Int, val nombre: String = "blanco") {
-    AZUL(1, "Azulito"),Rojo(2),Amarillo(3),Verde(4)
+    AZUL(1, "Azulito"),Rojo(2, "Rojojito"),Amarillo(3, "Amarillo"),Verde(4 ,"Verde")
 }
+// Data class para almacenar los colores seleccionados
+data class ColorSeleccionado(val auxiliar: String){
+    var color: String = auxiliar
+}
+
+/*
+data class ColorSeleccionado(val nombre: String, val color: Color){
+}*/
 
 
 @Composable
@@ -49,20 +58,36 @@ fun Botones() {
     // Estado para el color y el nombre del color
     var colorName by remember { mutableStateOf("") }
     var colorValue by remember { mutableStateOf(Color.White) }
+    var colorNumber by remember { mutableIntStateOf(0)  }
 
-    //var listaColoresPresionados = remember { mutableStateListOf<String>()}
+    val listaColores: MutableList<String> = mutableListOf()
 
-    // TODO clase mutable colores en proceso
-    //val entrees: MutableList<String> = mutableListOf()
-    //${entrees.add("hola")}
+
+
+    //var listaColores = remember {mutableStateListOf<String>()}
+
+
 
     Column(modifier = Modifier.padding(vertical = 200.dp)) {
         Button(
             onClick = {
                 colorName = ColoresNumerados.AZUL.nombre
                 colorValue = Color.Blue
-                Log.d("Boton pulsado", "se ha pulsado el boton $colorName")
+                colorNumber = ColoresNumerados.AZUL.colorNumero
+                Log.d("Boton pulsado", "se ha pulsado el boton $colorName, y su nomero es $colorNumber")
 
+                listaColores.add(colorName)
+                Log.d("La lista de colores actualizada es: ", "ListaColores: $listaColores")
+
+
+                val ColorSeleccionado1 = ColorSeleccionado("Azul")
+                Log.d("prubeas", "${ColorSeleccionado1}")
+                Log.d ("pruebnas2", ColorSeleccionado1.auxiliar)
+
+
+
+                /*val ColorSeleccionado1 = ColorSeleccionado("$listaColores")
+                Log.d("prubeas", "${ColorSeleccionado1}")*/
 
 
             },
@@ -73,9 +98,17 @@ fun Botones() {
 
         Button(
             onClick = {
-                colorName = "Rojo"
+                colorName = ColoresNumerados.Rojo.nombre
                 colorValue = Color.Red
-                Log.d("Boton pulsado", "se ha pulsado el boton $colorName")
+                colorNumber = ColoresNumerados.Rojo.colorNumero
+                Log.d("Boton pulsado", "se ha pulsado el boton $colorName, y su nomero es $colorNumber")
+
+                listaColores.add(colorName)
+                Log.d("La lista de colores actualizada es: ", "ListaColores: $listaColores")
+
+                val ColorSeleccionado1 = ColorSeleccionado("$listaColores")
+                Log.d("prubeas", "${ColorSeleccionado1}")
+
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
         ) {
@@ -84,9 +117,13 @@ fun Botones() {
 
         Button(
             onClick = {
-                colorName = "Amarillo"
+                colorName = ColoresNumerados.Amarillo.nombre
                 colorValue = Color.Yellow
-                Log.d("Boton pulsado", "se ha pulsado el boton $colorName")
+                colorNumber = ColoresNumerados.Amarillo.colorNumero
+                Log.d("Boton pulsado", "se ha pulsado el boton $colorName, y su nomero es $colorNumber")
+
+                listaColores.add(colorName)
+                Log.d("La lista de colores actualizada es: ", "ListaColores: $listaColores")
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow)
         ) {
@@ -95,9 +132,13 @@ fun Botones() {
 
         Button(
             onClick = {
-                colorName = "Verde"
+                colorName = ColoresNumerados.Verde.nombre
                 colorValue = Color.Green
-                Log.d("Boton pulsado", "se ha pulsado el boton $colorName")
+                colorNumber = ColoresNumerados.Verde.colorNumero
+                Log.d("Boton pulsado", "se ha pulsado el boton $colorName, y su nomero es $colorNumber")
+
+                listaColores.add(colorName)
+                Log.d("La lista de colores actualizada es: ", "ListaColores: $listaColores")
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
         ) {
@@ -123,43 +164,3 @@ fun Botones() {
     }
 }
 
-
-/*
-     @Composable
-fun Botones(){
-
-    var color = remember { mutableStateOf("") }
-
-    Column (
-        modifier = Modifier.padding(vertical = 200.dp)
-
-    )
-    {
-
-        Button(onClick = {color.value = "Azul"}) {
-            Text("AZUL", fontSize = 24.sp)
-        }
-        Button(onClick = {color.value = "Rojo" }) {
-            Text("ROJO", fontSize = 24.sp)
-        }
-        Button(onClick = {color.value = "Amarillo" }) {
-            Text("AMARILLO", fontSize = 24.sp)
-        }
-        Button(onClick = {color.value = "Verde" }) {
-            Text("VERDE", fontSize = 24.sp)
-        }
-
-        // campo de texto para rellenar
-        // cuando el valor de name cambia, le asigna el valor de it(el nuevo que cambia)
-        TextField(modifier = Modifier,
-            value = color.value,
-            // onValueChange sería el listener del textfield
-            onValueChange = {
-                color.value = it
-            },
-            label = { Text(text = "Color: ", fontSize = 24.sp) }
-        )
-        //modifier = Modifier.
-    }
-}
-        */
