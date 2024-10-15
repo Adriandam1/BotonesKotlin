@@ -2,6 +2,7 @@ package com.example.botonescolores
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -33,6 +34,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        //Asi es como hariamos una toast en el on create creamos la toast
+        val text = "hello toast"
+        //val duration = Toast.LENGTH_SHORT // 2 segundos
+        val duration = Toast.LENGTH_LONG // unos 4 segundos
+
+        // defino la toast
+        val toast = Toast.makeText(this, text, duration)
+        // una vez definida muestro la toast
+        toast.show()
+
+
         setContent {
             Botones()
         }
