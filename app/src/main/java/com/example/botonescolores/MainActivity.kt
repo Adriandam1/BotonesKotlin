@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Botones()
+            haciendoToast()
         }
     }
 }
@@ -60,9 +63,22 @@ data class ColorSeleccionado(val auxiliar: String){
     var color: String = auxiliar
 }
 
-/*
-data class ColorSeleccionado(val nombre: String, val color: Color){
-}*/
+data class DataRecord(var record:Int) {
+    fun saveRecord(record: Int) {
+        this.record = record
+    }
+}
+
+
+
+@Composable
+fun haciendoToast(){
+    val text = "Hello World"
+    val duration = Toast.LENGTH_LONG
+    val mContest = LocalContext.current
+    val toast = Toast.makeText(mContest, text,duration)
+    toast.show()
+}
 
 
 @Composable
@@ -95,6 +111,7 @@ fun Botones() {
                 val ColorSeleccionado1 = ColorSeleccionado("Azul")
                 Log.d("prubeas", "${ColorSeleccionado1}")
                 Log.d ("pruebnas2", ColorSeleccionado1.auxiliar)
+
 
 
 
